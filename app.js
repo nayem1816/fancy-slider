@@ -1,8 +1,10 @@
 const imagesArea = document.querySelector('.images');
 const gallery = document.querySelector('.gallery');
 const galleryHeader = document.querySelector('.gallery-header');
+const search = document.getElementById('search');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
+const duration = document.getElementById('duration');
 const sliderContainer = document.getElementById('sliders');
 // selected image 
 let sliders = [];
@@ -39,7 +41,7 @@ let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
   element.classList.add('added');
- 
+
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
@@ -83,10 +85,10 @@ const createSlider = () => {
       changeSlide(slideIndex);
     }, duration);
   } else {
-    alert('wrong');
+    alert('Please change your minus deration and try again letter. Thank you. ');
     imagesArea.style.display = 'block';
   }
-  
+
 }
 
 // change slider index 
@@ -126,3 +128,15 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+
+search.addEventListener("keypress", function (event) {
+  if (event.key == 'Enter') {
+    searchBtn.click();
+  }
+});
+duration.addEventListener("keypress", function (event) {
+  if (event.key == 'Enter') {
+    sliderBtn.click();
+  }
+});
