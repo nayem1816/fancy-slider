@@ -49,8 +49,8 @@ const selectItem = (event, img) => {
     console.log(sliders.push(img));
   }
   else {
-    sliders.pop(img);
-    console.log(sliders.pop(img));
+    sliders.splice(item, 1);
+    console.log(sliders.splice(item, 1));
   }
 }
 var timer
