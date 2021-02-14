@@ -120,9 +120,10 @@ const changeSlide = (index) => {
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
-  const search = document.getElementById('search');
-  getImages(search.value)
+  loadingSpinner(true);
+  getImages(search.value);
   sliders.length = 0;
+  loadingSpinner(false);
 })
 
 sliderBtn.addEventListener('click', function () {
@@ -140,3 +141,8 @@ duration.addEventListener("keypress", function (event) {
     sliderBtn.click();
   }
 });
+
+const loadingSpinner = (show)=>{
+  const spinner = document.getElementById('spinner-id');
+    spinner.classList.toggle('display');
+}

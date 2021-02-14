@@ -54,6 +54,9 @@ img {
 .main {
   display: none;
 }
+.display{
+  display: none !important;
+}
 
 @media (max-width: 767px) {
   .justify-content-around.align-items-center.mt-3.gallery-header.mb-2 {
