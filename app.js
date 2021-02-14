@@ -27,10 +27,11 @@ const showImages = (images) => {
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   })
-
+  loadingSpinner(false);
 }
 
 const getImages = (query) => {
+  loadingSpinner(true);
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -40,13 +41,16 @@ const getImages = (query) => {
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
-  element.classList.add('added');
+  element.classList.toggle('added');
 
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
-  } else {
-    alert('Hey, Already added !')
+    console.log(sliders.push(img));
+  }
+  else {
+    sliders.pop(img);
+    console.log(sliders.pop(img));
   }
 }
 var timer
@@ -70,7 +74,7 @@ const createSlider = () => {
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = document.getElementById('duration').value || 1000;
-  if (duration > 0) {
+  if (duration >= 1000) {
     sliders.forEach(slide => {
       let item = document.createElement('div')
       item.className = "slider-item";
@@ -85,7 +89,7 @@ const createSlider = () => {
       changeSlide(slideIndex);
     }, duration);
   } else {
-    alert('Please change your minus deration and try again letter. Thank you. ');
+    alert('Please change your value and input minimum 1000 Milliseconds. Thank you.');
     imagesArea.style.display = 'block';
   }
 
@@ -120,10 +124,8 @@ const changeSlide = (index) => {
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
-  loadingSpinner(true);
   getImages(search.value);
   sliders.length = 0;
-  loadingSpinner(false);
 })
 
 sliderBtn.addEventListener('click', function () {
@@ -142,7 +144,12 @@ duration.addEventListener("keypress", function (event) {
   }
 });
 
-const loadingSpinner = (show)=>{
+const loadingSpinner = (show) => {
   const spinner = document.getElementById('spinner-id');
-    spinner.classList.toggle('display');
+  // console.log('object');
+  if (show) {
+    spinner.classList.remove('display');
+  } else {
+    spinner.classList.add('display');
+  }
 }

@@ -16,6 +16,8 @@
 
 .img-thumbnail {
   cursor: pointer;
+  width: 400px;
+  height: 200px;
 }
 
 .added {
